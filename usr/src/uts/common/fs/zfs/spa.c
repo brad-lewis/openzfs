@@ -2609,7 +2609,6 @@ spa_ld_load_trusted_config(spa_t *spa, spa_import_type_t type,
 	 */
 	if (type == SPA_IMPORT_ASSEMBLE)
 		return (0);
-
 	healthy_tvds = spa_healthy_core_tvds(spa);
 
 	if (load_nvlist(spa, spa->spa_config_object, &mos_config)
@@ -5927,6 +5926,8 @@ spa_vdev_split_mirror(spa_t *spa, char *newname, nvlist_t *config,
 
 	spa_activate(newspa, spa_mode_global);
 	spa_async_suspend(newspa);
+
+	newspa->spa_config_source = SPA_CONFIG_SRC_SPLIT;
 
 	newspa->spa_config_source = SPA_CONFIG_SRC_SPLIT;
 
