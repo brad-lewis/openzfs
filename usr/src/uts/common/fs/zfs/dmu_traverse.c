@@ -124,9 +124,12 @@ traverse_zil(traverse_data_t *td, zil_header_t *zh)
 
 	/*
 	 * We only want to visit blocks that have been claimed but not yet
-	 * replayed; plus blocks that are already stable in read-only mode.
+	 * replayed; plus blocks that are already stable in read-only mode,
+	 * except from the case where we are opening the checkpointed state
+	 * of the pool. [see comment in zil_claim()]
 	 */
-	if (claim_txg == 0 && spa_writeable(td->td_spa))
+	if (claim_txg == 0 && (spa_writeable(td->td_spa) ||
+	    td->td_spa->spa_uberblock.ub_checkpoint_txg != 0))
 		return;
 
 	zilog_t *zilog = zil_alloc(spa_get_dsl(td->td_spa)->dp_meta_objset, zh);
