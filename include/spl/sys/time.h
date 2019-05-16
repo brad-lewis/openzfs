@@ -38,7 +38,7 @@
 #define	TIME_MIN			INT32_MIN
 #endif
 
-#define	SEC				1
+#define	ONESEC				1
 #define	MILLISEC			1000
 #define	MICROSEC			1000000
 #define	NANOSEC				1000000000
@@ -49,8 +49,8 @@
 #define	USEC2NSEC(m)	((hrtime_t)(m) * (NANOSEC / MICROSEC))
 #define	NSEC2USEC(n)	((n) / (NANOSEC / MICROSEC))
 
-#define	NSEC2SEC(n)	((n) / (NANOSEC / SEC))
-#define	SEC2NSEC(m)	((hrtime_t)(m) * (NANOSEC / SEC))
+#define	NSEC2SEC(n)	((n) / (NANOSEC / ONESEC))
+#define	SEC2NSEC(m)	((hrtime_t)(m) * (NANOSEC / ONESEC))
 
 static const int hz = HZ;
 
